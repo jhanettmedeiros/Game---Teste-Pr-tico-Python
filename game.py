@@ -18,10 +18,10 @@ COUNTER_ANIMATION = 0
 FRAME_STOPPED_INDEX = 0
 COLLIDED = False  
 
-# Herói
+
 HERO = Actor("hero1", (WIDTH // 2, HEIGHT - 100))
 
-# ENEMIES (estado normal, sem animação especial)
+
 ENEMIES = [Actor("enemy1", (random.randint(50, WIDTH - 50), random.randint(-500, -50))) for _ in range(5)]
 
 MENU_BUTTONS = [
@@ -32,7 +32,7 @@ MENU_BUTTONS = [
 
 BACK_BUTTON = {"rect": Rect((20, 20), (150, 50)), "cor": "orange", "texto": "Voltar ao Menu"}
 
-# Música
+
 if ON_SOUND:
     music.play("background")
     music.set_volume(0.5)
@@ -113,23 +113,23 @@ def update():
             HERO.y += HERO_SPEED
             moving = True
 
-        # Movimento dos ENEMIES
+        
         for enemy in ENEMIES:
             enemy.y += 2
             if enemy.y > HEIGHT:
                 enemy.x = random.randint(50, WIDTH - 50)
                 enemy.y = random.randint(-300, -50)
 
-        # Verificar colisões
+      
         for enemy in ENEMIES:
             if HERO.colliderect(enemy):
                 COLLIDED = True
                 CURRENT_SCREEN = "gameover"
 
-        # Animações
+       
         COUNTER_ANIMATION += 1
         if COUNTER_ANIMATION % 9 == 0:
-            # Animação do herói
+        
             if moving:
                 INDEX_HERO = (INDEX_HERO + 1) % len(HERO_FRAMES)
                 HERO.image = HERO_FRAMES[INDEX_HERO]
@@ -137,7 +137,7 @@ def update():
                 FRAME_STOPPED_INDEX = (FRAME_STOPPED_INDEX + 1) % len(HERO_STOPPED_FRAMES)
                 HERO.image = HERO_STOPPED_FRAMES[FRAME_STOPPED_INDEX]
 
-            # Animação dos ENEMIES se COLLIDED
+       
             if COLLIDED:
                 for i, enemy in enumerate(ENEMIES):
                     enemy.image = ENEMY_FRAMES_COLLISION[i % len(ENEMY_FRAMES_COLLISION)]
